@@ -16,6 +16,7 @@ A collection of Python scripts and mini-projects developed during my first month
 7. **`password generator.py`** — Customizable password generator leveraging Python's `string` and `random` standard library modules.
 8. **`rock paper scissors.py`** — Classic player vs. computer game implementing fundamental conditional checks and game reset loops.
 9. **`rps ai 2.py`** — Refactored, high-quality version of Rock-Paper-Scissors with structured boolean win conditions and clean UI output.
+10. **`ATM MACHINE(oop practice).py`** — Interactive ATM simulator built using Object-Oriented Programming (OOP) classes, JSON file persistence (`json.dump`/`json.load`), transaction history logging, and input validation.
 
 ---
 
