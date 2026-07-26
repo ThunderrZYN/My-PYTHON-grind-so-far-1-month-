@@ -67,7 +67,7 @@ while True:
         print("\nERROR:enter valid input")
         continue
     if cr_de not in (1,2,3,4,5):
-        print("\nInvalid input: (enter 1 thru  4)")
+        print("\nInvalid input: (enter 1-5)")
         continue
 
     #CREDITING AMOUNT
@@ -90,8 +90,11 @@ while True:
     #CHECK HISTORY
 
     elif cr_de == 4:
-        for index, transaction in enumerate(bank.history):
-            print(f"{index + 1}, {transaction}")
+        if not bank.history:
+            print("no transactions yet")
+        else:
+            for index, transaction in enumerate(bank.history):
+                print(f"{index + 1}, {transaction}")
         continue
 
     #QUITTING ATM
