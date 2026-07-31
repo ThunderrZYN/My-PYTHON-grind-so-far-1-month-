@@ -1,12 +1,16 @@
 import json
 import os
+import sys
+
+
 #MAIN CLASS FOR BANK ACCOUNT
 class Bank_acc:
-    def __init__(self,filename: str = "account.json",balance: float = 0.0) -> None:
+    def __init__(self,username: str,owner: str,balance: float = 0.0,pin: int = 0000) -> None:
         self.balance = balance
         self.history = []
-        self.owner = None
-        self.file = filename
+        self.owner = owner
+        self.file = username
+        self.pin = pin
         self.load()
 
     def credit(self,amount: float = 0.0) -> float:
@@ -29,7 +33,8 @@ class Bank_acc:
             database = {
                 "owner":self.owner,
                 "balance":self.balance,
-                "history":self.history
+                "history":self.history,
+                "pin":self.pin
             }
             json.dump(database,file)
     def load(self):
@@ -40,11 +45,8 @@ class Bank_acc:
                 self.owner = saved_data["owner"]
                 self.history = saved_data["history"]
         else:
-            self.owner = input("FIRST TIME SETUP;ENTER NAME: ")
             self.save()
 
-#object bank   
-bank = Bank_acc()
 
 #AMOUNT INPUT ERROR HANDLING(VALIDATING)
 def amountvalidator():
@@ -59,7 +61,23 @@ def amountvalidator():
            continue
         else:
             return round(am,2)
-#CORE ATM LOOP
+
+#AUTHENTICATION
+userinput = input("Enter UserName: ").lower().strip()
+username = "users/" + userinput + ".json"
+if os.path.exists(username):
+    pin = int(input("Enter Pin: "))
+    with open (username,"r") as f:
+        data = json.load(f)
+        if pin == data["pin"]:
+            bank = Bank_acc(username = username,owner = userinput,pin = pin)
+        else:
+            print("wrong pin,exiting for safety")
+            sys.exit()
+else:
+    print("---making new account---")
+    pin = int(input("Enter pin: "))
+    bank = Bank_acc(username = username,owner = userinput,pin = pin)
 
 while True:
 
